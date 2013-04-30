@@ -14,11 +14,15 @@
 
             currencies: currencies,
 
+            loading: false,
+
             convert: function() {
                 var self = this,
                     valueToConvert = self.value,
                     currencyTicker = self.currency,
                     promises = [];
+
+                self.loading = true;
 
                 angular.forEach(self.currencies, function(currency) {
                     if(currency.ticker === currencyTicker) {
@@ -46,6 +50,7 @@
 
                 $.when.apply(null, promises).done(function() {
                     self.setChartData();
+                    self.loading = false;
                     self.$apply();
                 });
             },
