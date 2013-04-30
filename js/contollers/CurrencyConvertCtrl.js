@@ -61,6 +61,38 @@
 
                 chart.xAxis[0].setCategories(currencyTickers);
                 chart.series[0].setData(values);
+            },
+
+            columns: [
+                { field: "name", title: "Currency" },
+                { field: "ticker", title: "Ticker" },
+                { field: "rate", title: "Rate" },
+                { field: "value", title: "Converted" }
+            ],
+
+            sorting: {
+                field: "name",
+                asc: true
+            },
+
+            columnClass: function(field) {
+                return this.sorting.field === field ? "sorted" : "";
+            },
+
+            columnSortingPrefix: function(field) {
+                if(this.sorting.field === field) {
+                    return this.sorting.asc ? "↑" : "↓";
+                }
+            },
+
+            setSorting: function(field) {
+                var sorting = this.sorting;
+                if(sorting.field === field) {
+                    sorting.asc = !sorting.asc;
+                } else {
+                    sorting.field = field;
+                    sorting.asc = true;
+                }
             }
         });
 
